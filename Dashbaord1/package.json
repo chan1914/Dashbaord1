@@ -12,7 +12,10 @@
     "name": ""
   },
   "dependencies": {
-    "vue": "2.5.17"
+    "@amcharts/amcharts4": "^4.9.24",
+    "@amcharts/amcharts4-fonts": "^4.0.1",
+    "@amcharts/amcharts4-geodata": "^4.1.15",
+    "vue": "^2.5.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "3.0.4",
