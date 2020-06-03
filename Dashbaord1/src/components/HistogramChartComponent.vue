@@ -69,10 +69,10 @@
 					return chart.colors.getIndex(target.dataItem.index);
 				})
 
-				// Cursor
-				chart.cursor = new am4charts.RadarCursor();
-				chart.cursor.innerRadius = am4core.percent(50);
-				chart.cursor.lineY.disabled = true;
+				//// Cursor
+				//chart.cursor = new am4charts.RadarCursor();
+				//chart.cursor.innerRadius = am4core.percent(50);
+				//chart.cursor.lineY.disabled = true;
 
 			}); // end am4core.ready()
 
@@ -83,6 +83,6 @@
 <style scoped>
 	#chartdiv {
 		width: 40%;
-		height: 400px;
+		height: 350px;
 	}
 </style>

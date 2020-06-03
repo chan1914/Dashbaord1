@@ -32,6 +32,9 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
+    <Content Include="src\components\GaugeChartComponent.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\HistogramChartComponent.vue">
       <SubType>Code</SubType>
     </Content>
@@ -49,6 +52,9 @@
   <ItemGroup>
     <Content Include="babel.config.js" />
     <Content Include="src\components\LineChartComponent.vue">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\components\PieChartComponent.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\main.js" />

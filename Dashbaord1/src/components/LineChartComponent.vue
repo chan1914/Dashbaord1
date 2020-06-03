@@ -96,7 +96,7 @@
 
 <style scoped>
 	#chartdiv {
-		width: 40%;
+		width: 50%;
 		height: 300px;
 	}
 </style>
