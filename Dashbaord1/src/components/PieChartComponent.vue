@@ -76,7 +76,7 @@
 	}
 </script>
 
-<style scoped>
+<style >
 	#chartdiv {
 		width: 50%;
 		height: 350px;

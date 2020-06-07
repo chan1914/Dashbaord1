@@ -46,9 +46,10 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	#chartdiv {
 		width: 50%;
 		height: 200px;
 	}
+	
 </style>
