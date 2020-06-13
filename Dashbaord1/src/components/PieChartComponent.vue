@@ -1,5 +1,5 @@
 <template>
-	<div id="chartdiv"></div>
+	<div id="chartdiv" style="width: 100%; height: 400px;"></div>
 </template>
 
 <script>
@@ -76,7 +76,7 @@
 	}
 </script>
 
-<style >
+<style scoped>
 	#chartdiv {
 		width: 50%;
 		height: 350px;

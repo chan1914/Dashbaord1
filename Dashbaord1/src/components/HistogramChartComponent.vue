@@ -14,6 +14,10 @@
 		mounted() {
 			am4core.ready(function () {
 
+				// Themes begin
+				am4core.useTheme(am4themes_animated);
+				// Themes end
+
 				// Create chart instance
 				var chart = am4core.create("chartdiv", am4charts.RadarChart);
 				chart.scrollbarX = new am4core.Scrollbar();
@@ -69,10 +73,10 @@
 					return chart.colors.getIndex(target.dataItem.index);
 				})
 
-				//// Cursor
-				//chart.cursor = new am4charts.RadarCursor();
-				//chart.cursor.innerRadius = am4core.percent(50);
-				//chart.cursor.lineY.disabled = true;
+				// Cursor
+				chart.cursor = new am4charts.RadarCursor();
+				chart.cursor.innerRadius = am4core.percent(50);
+				chart.cursor.lineY.disabled = true;
 
 			}); // end am4core.ready()
 
@@ -80,9 +84,9 @@
 	}
 </script>
 
-<style >
+<style scoped>
 	#chartdiv {
-		width: 40%;
-		height: 350px;
+		width: 100%;
+		height: 500px;
 	}
 </style>
