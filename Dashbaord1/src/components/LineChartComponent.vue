@@ -1,5 +1,7 @@
 <template>
-	<div id="chartdiv" style="width: 50%; height: 400px;"></div>
+	<div>
+		<div id="chartdiv" style="width: 50%; height: 400px;"></div>
+	</div>
 </template>
 
 <script>
@@ -11,6 +13,16 @@
 
 	export default {
 		name: 'LineChartComponent',
+		//data() {
+		//	return {
+		//		linesClicked: false
+		//	}
+		//},
+		//methods() {
+		//	checkboxClicked(){
+		//		this.linesClicked = !this.linesClicked;
+		//	}
+		//},
 		mounted() {
 			am4core.ready(function () {
 
@@ -25,73 +37,179 @@
 
 				//Datasets for momentkurve
 				chart.data = [{
-					"torque_log_values_id": 0,
+					"torque_log_values_id": 1,
 					"torque_values": 0
 				}, {
 					"torque_log_values_id": 2,
-					"torque_values": 1
+					"torque_values": 0
 				}, {
 					"torque_log_values_id": 3,
-					"torque_values": 3
-				}, {
-					"torque_log_values_id": 8,
-					"torque_values": 3
-				}, {
-					"torque_log_values_id": 15,
-					"torque_values": 4
-				}, {
-					"torque_log_values_id": 25,
-					"torque_values": 5
-				}, {
-					"torque_log_values_id": 50,
-					"torque_values": 4
-				}, {
-					"torque_log_values_id": 70,
 					"torque_values": 1
 				}, {
-					"torque_log_values_id": 100,
-					"torque_values": 0
-
+					"torque_log_values_id": 4,
+					"torque_values": 1
+				}, {
+					"torque_log_values_id": 5,
+					"torque_values": 1
+				}, {
+					"torque_log_values_id": 6,
+					"torque_values": 2
+				}, {
+					"torque_log_values_id": 7,
+					"torque_values": 2
+				}, {
+					"torque_log_values_id": 8,
+					"torque_values": 2
+				}, {
+					"torque_log_values_id": 9,
+					"torque_values": 2
+				}, {
+					"torque_log_values_id": 10,
+					"torque_values": 3
+				}, {
+					"torque_log_values_id": 11,
+					"torque_values": 2
+				}, {
+					"torque_log_values_id": 12,
+					"torque_values": 1
 				}];
 
-				// Create axes
-				var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-				categoryAxis.dataFields.category = "torque_log_values_id";
-				categoryAxis.renderer.minGridDistance = 50;
-				categoryAxis.renderer.grid.template.location = 0.5;
-				categoryAxis.renderer.ticks.template.length = 10;
+				// Create x axis
+				var xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+				xAxis.renderer.minGridDistance = 40;
 
+				// Create y axis
+				var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+				yAxis.baseValue = 0;
 
-				// Create value axis
-				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-				valueAxis.baseValue = 0;
 
 				// Create series
 				var series = chart.series.push(new am4charts.LineSeries());
+				series.dataFields.valueX = "torque_log_values_id";
 				series.dataFields.valueY = "torque_values";
-				series.dataFields.categoryX = "torque_log_values_id";
-				series.strokeWidth = 2;
-				series.tensionX = 0.77;
 
-				// bullet is added because we add tooltip to a bullet for it to change color
-				var bullet = series.bullets.push(new am4charts.Bullet());
-				bullet.tooltipText = "{valueY}";
 
-				bullet.adapter.add("fill", function (fill, target) {
-					if (target.dataItem.valueY < 0) {
-						return am4core.color("#FF0000");
-					}
-					return fill;
-				})
-				var range = valueAxis.createSeriesRange(series);
-				range.value = 0;
-				range.endValue = -1000;
-				range.contents.stroke = am4core.color("#FF0000");
-				range.contents.fill = range.contents.stroke;
+				function createTrendLines(data) {
+					var createTrendLineLow = chart.series.push(new am4charts.LineSeries());
+					createTrendLineLow.dataFields.valueX = "lowFirst";
+					createTrendLineLow.dataFields.valueY = "lowLast";
+					createTrendLineLow.strokeWidth = 2
+					createTrendLineLow.stroke = am4core.color("#FAFA4C");
+					createTrendLineLow.data = data.trendLinesLow;
 
-			}); // end am4core.ready()
+					var createTrendLineMedium = chart.series.push(new am4charts.LineSeries());
+					createTrendLineMedium.dataFields.valueX = "lowFirst";
+					createTrendLineMedium.dataFields.valueY = "lowLast";
+					createTrendLineMedium.strokeWidth = 2
+					createTrendLineMedium.stroke = am4core.color("#26F62D");
+					createTrendLineMedium.data = data.trendLinesMedium;
+
+					var createTrendLineHigh = chart.series.push(new am4charts.LineSeries());
+					createTrendLineHigh.dataFields.valueX = "lowFirst";
+					createTrendLineHigh.dataFields.valueY = "lowLast";
+					createTrendLineHigh.strokeWidth = 2
+					createTrendLineHigh.stroke = am4core.color("#F62626");
+					createTrendLineHigh.data = data.trendLinesHigh;
+
+				}
+
+
+				//var trendLineLow = createSeries("value", "Series #1");
+				//var series2 = createSeries("value2", "Series #2", true);
+				//var series3 = createSeries("value3", "Series #3", true);
+
+				//series1.events.on("hidden", function () {
+				//	series2.hide();
+				//	series3.hide();
+				//});
+
+				//series1.events.on("shown", function () {
+				//	series2.show();
+				//	series3.show();
+				//});
+				var trendLines = {
+					trendLinesLow:
+					[
+						{ "lowFirst": 1, "lowLast": 8 },
+						{ "lowFirst": 13, "lowLast": 8 }
+						],
+					trendLinesMedium:
+						[
+							{ "lowFirst": 1, "lowLast": 10 },
+							{ "lowFirst": 13, "lowLast": 10 }
+						],
+					trendLinesHigh:
+						[
+							{ "lowFirst": 1, "lowLast": 13 },
+							{ "lowFirst": 13, "lowLast": 13 }
+						]
+				}
+
+				createTrendLines(trendLines);						
+				
+
+				//createTrendLineLow([
+				//	{ "lowFirst": 1, "lowLast": 8 },
+				//	{ "lowFirst": 13, "lowLast": 8 }
+				//]);
+
+				//createTrendLineMedium([
+				//	{ "lowFirst": 1, "lowLast": 10 },
+				//	{ "lowFirst": 13, "lowLast": 10 }
+				//]);
+
+				//createTrendLineHigh([
+				//	{ "lowFirst": 1, "lowLast": 13 },
+				//	{ "lowFirst": 13, "lowLast": 13 }
+				//]);
+
+
+				//// Add legend
+				//chart.legend = new am4charts.Legend();
+				//chart.legend.position = "right";
+				//chart.legend.itemContainers.template.clickable = true
+				//chart.legend.itemContainers.template.focusable = true
+				//chart.legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
+
+				// Add legend
+				chart.legend = new am4charts.Legend();
+
+				chart.legend.useDefaultMarker = true;
+				chart.legend.position = "right";
+
+				const marker = chart.legend.markers.template;
+				const markerColumn = marker.children.getIndex(0);
+
+
+				markerColumn.cornerRadius(0, 0, 0, 0);
+				markerColumn.defaultState.properties.fillOpacity = 0;
+				markerColumn.defaultState.properties.strokeWidth = 1;
+				markerColumn.defaultState.properties.stroke = am4core.color("#000");
+				markerColumn.defaultState.properties.strokeOpacity = 1;
+				// markerColumnActiveState.properties.fillOpacity = 0;
+
+				// Add custom image instead
+				const checkbox = marker.createChild(am4core.Image);
+				checkbox.width = 20;
+				checkbox.height = 20;
+				checkbox.verticalCenter = "top";
+				checkbox.horizontalCenter = "left";
+
+				checkbox.href = "https://cdn.onlinewebfonts.com/svg/img_207414.png";
+				checkbox.dx = 1;
+				checkbox.dy = 1;
+
+				//const checkboxActiveState = checkbox.states.create("active");
+				checkboxActiveState.properties.opacity = 0;
+
+
+			});
+
+
+			// end am4core.ready()
 		},
 	}
+
 </script>
 
 <style scoped>
@@ -99,5 +217,4 @@
 		width: 50%;
 		height: 300px;
 	}
-
 </style>
