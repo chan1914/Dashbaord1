@@ -24,60 +24,28 @@
 
 				// Creating Axes
 				var xAxis = chart.xAxes.push(new am4charts.ValueAxis())
-				xAxis.name = "Time";
+				xAxis.dataFields.useColumnNames = "torque_log_values_id";
 
 				var yAxis = chart.yAxes.push(new am4charts.ValueAxis())
-				yAxis.name = "NewtonMeter";
+				yAxis.dataFields.useColumnNames = "torque_values";
 
 				// Dataloader
-				chart.dataSource.url = "https://github.com/chan1914/Dashboard/blob/master/Dashboard_data%20-%20csv.csv";
+				chart.dataSource.url = "https://dashboardtest.imfast.io/Dashboard_data%20-%20csv.csv";
+				chart.dataSource.parser = new am4core.CSVParser();
+				chart.dataSource.parser.options.useColumnNames = true;
 				
-
-				// Create axes
-				var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-				categoryAxis.dataFields.category = "category";
-				categoryAxis.renderer.grid.template.location = 0;
-				categoryAxis.renderer.minGridDistance = 30;
-				categoryAxis.tooltip.disabled = true;
-				categoryAxis.renderer.minHeight = 110;
-				categoryAxis.renderer.grid.template.disabled = true;
-				//categoryAxis.renderer.labels.template.disabled = true;
-				let labelTemplate = categoryAxis.renderer.labels.template;
-				labelTemplate.radius = am4core.percent(-60);
-				labelTemplate.location = 0.5;
-				labelTemplate.relativeRotation = 90;
-
-				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-				valueAxis.renderer.grid.template.disabled = true;
-				valueAxis.renderer.labels.template.disabled = true;
-				valueAxis.tooltip.disabled = true;
-
+				
 				// Create series
-				var series = chart.series.push(new am4charts.RadarColumnSeries());
-				series.sequencedInterpolation = true;
-				series.dataFields.valueY = "value";
-				series.dataFields.categoryX = "category";
+				var series = chart.series.push(new am4charts.ColumnSeries());
+				series.dataFields.valueX = "torque_log_values_id";
+				series.dataFields.valueY = "torque_values";
 				series.columns.template.strokeWidth = 0;
-				series.tooltipText = "{valueY}";
-				series.columns.template.radarColumn.cornerRadius = 10;
-				series.columns.template.radarColumn.innerCornerRadius = 0;
 
-				series.tooltip.pointerOrientation = "vertical";
-
-				// on hover, make corner radiuses bigger
-				let hoverState = series.columns.template.radarColumn.states.create("hover");
-				hoverState.properties.cornerRadius = 0;
-				hoverState.properties.fillOpacity = 1;
+				series.tensionX = 0.7;
+				series.bullets.push(new am4charts.CircleBullet());
 
 
-				series.columns.template.adapter.add("fill", function (fill, target) {
-					return chart.colors.getIndex(target.dataItem.index);
-				})
 
-				// Cursor
-				chart.cursor = new am4charts.RadarCursor();
-				chart.cursor.innerRadius = am4core.percent(50);
-				chart.cursor.lineY.disabled = true;
 
 			}); // end am4core.ready()
 
