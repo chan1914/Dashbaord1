@@ -77,6 +77,7 @@
 				// Create x axis
 				var xAxis = chart.xAxes.push(new am4charts.ValueAxis());
 				xAxis.renderer.minGridDistance = 40;
+				xAxis.renderer.labels.name = "Newtonmeter";
 
 				// Create y axis
 				var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -87,8 +88,10 @@
 				var series = chart.series.push(new am4charts.LineSeries());
 				series.dataFields.valueX = "torque_log_values_id";
 				series.dataFields.valueY = "torque_values";
+				series.name = "Torque curve";
 
 
+				//Creating Trendlines
 				function createTrendLines(data) {
 					var createTrendLineLow = chart.series.push(new am4charts.LineSeries());
 					createTrendLineLow.dataFields.valueX = "lowFirst";
@@ -97,16 +100,18 @@
 					createTrendLineLow.stroke = am4core.color("#FAFA4C");
 					createTrendLineLow.data = data.trendLinesLow;
 
+
 					var createTrendLineMedium = chart.series.push(new am4charts.LineSeries());
-					createTrendLineMedium.dataFields.valueX = "lowFirst";
-					createTrendLineMedium.dataFields.valueY = "lowLast";
+					createTrendLineMedium.dataFields.valueX = "mediumFirst";
+					createTrendLineMedium.dataFields.valueY = "mediumLast";
 					createTrendLineMedium.strokeWidth = 2
 					createTrendLineMedium.stroke = am4core.color("#26F62D");
 					createTrendLineMedium.data = data.trendLinesMedium;
 
+
 					var createTrendLineHigh = chart.series.push(new am4charts.LineSeries());
-					createTrendLineHigh.dataFields.valueX = "lowFirst";
-					createTrendLineHigh.dataFields.valueY = "lowLast";
+					createTrendLineHigh.dataFields.valueX = "highFirst";
+					createTrendLineHigh.dataFields.valueY = "highLast";
 					createTrendLineHigh.strokeWidth = 2
 					createTrendLineHigh.stroke = am4core.color("#F62626");
 					createTrendLineHigh.data = data.trendLinesHigh;
@@ -114,93 +119,69 @@
 				}
 
 
-				//var trendLineLow = createSeries("value", "Series #1");
-				//var series2 = createSeries("value2", "Series #2", true);
-				//var series3 = createSeries("value3", "Series #3", true);
-
-				//series1.events.on("hidden", function () {
-				//	series2.hide();
-				//	series3.hide();
-				//});
-
-				//series1.events.on("shown", function () {
-				//	series2.show();
-				//	series3.show();
-				//});
+				//TrendLine data - Low, Medium, High
 				var trendLines = {
 					trendLinesLow:
-					[
-						{ "lowFirst": 1, "lowLast": 8 },
-						{ "lowFirst": 13, "lowLast": 8 }
+						[
+							{ "lowFirst": 1, "lowLast": 8 },
+							{ "lowFirst": 13, "lowLast": 8 }
 						],
 					trendLinesMedium:
 						[
-							{ "lowFirst": 1, "lowLast": 10 },
-							{ "lowFirst": 13, "lowLast": 10 }
+							{ "mediumFirst": 1, "mediumLast": 10 },
+							{ "mediumFirst": 13, "mediumLast": 10 }
 						],
 					trendLinesHigh:
 						[
-							{ "lowFirst": 1, "lowLast": 13 },
-							{ "lowFirst": 13, "lowLast": 13 }
+							{ "highFirst": 1, "highLast": 13 },
+							{ "highFirst": 13, "highLast": 13 }
 						]
 				}
 
-				createTrendLines(trendLines);						
-				
-
-				//createTrendLineLow([
-				//	{ "lowFirst": 1, "lowLast": 8 },
-				//	{ "lowFirst": 13, "lowLast": 8 }
-				//]);
-
-				//createTrendLineMedium([
-				//	{ "lowFirst": 1, "lowLast": 10 },
-				//	{ "lowFirst": 13, "lowLast": 10 }
-				//]);
-
-				//createTrendLineHigh([
-				//	{ "lowFirst": 1, "lowLast": 13 },
-				//	{ "lowFirst": 13, "lowLast": 13 }
-				//]);
+				createTrendLines(trendLines);
 
 
-				//// Add legend
-				//chart.legend = new am4charts.Legend();
-				//chart.legend.position = "right";
-				//chart.legend.itemContainers.template.clickable = true
-				//chart.legend.itemContainers.template.focusable = true
-				//chart.legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
+
 
 				// Add legend
 				chart.legend = new am4charts.Legend();
-
-				chart.legend.useDefaultMarker = true;
 				chart.legend.position = "right";
+				chart.legend.itemContainers.template.clickable = true
+				chart.legend.itemContainers.template.focusable = true
+				chart.legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
+				chart.legend.labels.template.text = "[bold {color}]{name}[/]";
+				
+				
 
-				const marker = chart.legend.markers.template;
-				const markerColumn = marker.children.getIndex(0);
+				//// Add legend
+	
+				//chart.legend.useDefaultMarker = true;
+				//chart.legend.position = "right";
+
+				//const marker = chart.legend.markers.template;
+				//const markerColumn = marker.children.getIndex(0);
 
 
-				markerColumn.cornerRadius(0, 0, 0, 0);
-				markerColumn.defaultState.properties.fillOpacity = 0;
-				markerColumn.defaultState.properties.strokeWidth = 1;
-				markerColumn.defaultState.properties.stroke = am4core.color("#000");
-				markerColumn.defaultState.properties.strokeOpacity = 1;
-				// markerColumnActiveState.properties.fillOpacity = 0;
+				//markerColumn.cornerRadius(0, 0, 0, 0);
+				//markerColumn.defaultState.properties.fillOpacity = 0;
+				//markerColumn.defaultState.properties.strokeWidth = 1;
+				//markerColumn.defaultState.properties.stroke = am4core.color("#000");
+				//markerColumn.defaultState.properties.strokeOpacity = 1;
+				//// markerColumnActiveState.properties.fillOpacity = 0;
 
-				// Add custom image instead
-				const checkbox = marker.createChild(am4core.Image);
-				checkbox.width = 20;
-				checkbox.height = 20;
-				checkbox.verticalCenter = "top";
-				checkbox.horizontalCenter = "left";
+				//// Add custom image instead
+				//const checkbox = marker.createChild(am4core.Image);
+				//checkbox.width = 20;
+				//checkbox.height = 20;
+				//checkbox.verticalCenter = "top";
+				//checkbox.horizontalCenter = "left";
 
-				checkbox.href = "https://cdn.onlinewebfonts.com/svg/img_207414.png";
-				checkbox.dx = 1;
-				checkbox.dy = 1;
+				//checkbox.href = "https://cdn.onlinewebfonts.com/svg/img_207414.png";
+				//checkbox.dx = 1;
+				//checkbox.dy = 1;
 
-				//const checkboxActiveState = checkbox.states.create("active");
-				checkboxActiveState.properties.opacity = 0;
+				////const checkboxActiveState = checkbox.states.create("active");
+				//checkboxActiveState.properties.opacity = 0;
 
 
 			});
