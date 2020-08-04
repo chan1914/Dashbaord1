@@ -19,18 +19,19 @@
 				// Themes end
 
 				// Create chart instance
-				var chart = am4core.create("chartdiv", am4charts.RadarChart);
+				var chart = am4core.create("chartdiv", am4charts.XYChart);
 				chart.scrollbarX = new am4core.Scrollbar();
 
-				var data = [];
+				// Creating Axes
+				var xAxis = chart.xAxes.push(new am4charts.ValueAxis())
+				xAxis.name = "Time";
 
-				for (var i = 0; i < 20; i++) {
-					data.push({ category: i, value: Math.round(Math.random() * 100) });
-				}
+				var yAxis = chart.yAxes.push(new am4charts.ValueAxis())
+				yAxis.name = "NewtonMeter";
 
-				chart.data = data;
-				chart.radius = am4core.percent(100);
-				chart.innerRadius = am4core.percent(50);
+				// Dataloader
+				chart.dataSource.url = "https://github.com/chan1914/Dashboard/blob/master/Dashboard_data%20-%20csv.csv";
+				
 
 				// Create axes
 				var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

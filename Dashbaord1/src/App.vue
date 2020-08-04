@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
 		
-		<!--<HistogramChartComponent></HistogramChartComponent>-->
-		<LineChartComponent></LineChartComponent>
+		<HistogramChartComponent></HistogramChartComponent>
+		<!--<LineChartComponent></LineChartComponent>-->
 		<!--<PieChartComponent></PieChartComponent>-->
 		<!--<GaugeChartComponent></GaugeChartComponent>-->
 	</div>
