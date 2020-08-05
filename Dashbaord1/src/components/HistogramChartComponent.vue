@@ -23,17 +23,16 @@
 				chart.scrollbarX = new am4core.Scrollbar();
 
 				// Creating Axes
-				var xAxis = chart.xAxes.push(new am4charts.ValueAxis())
+				var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
 				xAxis.dataFields.useColumnNames = "torque_log_values_id";
 
 				var yAxis = chart.yAxes.push(new am4charts.ValueAxis())
 				yAxis.dataFields.useColumnNames = "torque_values";
 
-				// Dataloader
-				chart.dataSource.url = "https://dashboardtest.imfast.io/Dashboard_data%20-%20csv.csv";
+				// Dataloader virker lige nu men vi har ikke godt data
+				chart.dataSource.url = "https://dashboardtest.imfast.io/TouqueData.CSV";
 				chart.dataSource.parser = new am4core.CSVParser();
 				chart.dataSource.parser.options.useColumnNames = true;
-				
 				
 				// Create series
 				var series = chart.series.push(new am4charts.ColumnSeries());
@@ -41,9 +40,12 @@
 				series.dataFields.valueY = "torque_values";
 				series.columns.template.strokeWidth = 0;
 
-				series.tensionX = 0.7;
+				//series.tensionX = 1;
 				series.bullets.push(new am4charts.CircleBullet());
 
+				//Add Legend
+				chart.legend = new am4charts.Legend();
+				
 
 
 
