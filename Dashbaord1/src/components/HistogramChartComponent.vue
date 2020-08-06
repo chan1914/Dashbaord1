@@ -23,7 +23,7 @@
 				chart.scrollbarX = new am4core.Scrollbar();
 
 				// Creating Axes
-				var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+				var xAxis = chart.xAxes.push(new am4charts.ValueAxis())
 				xAxis.dataFields.useColumnNames = "torque_log_values_id";
 
 				var yAxis = chart.yAxes.push(new am4charts.ValueAxis())
