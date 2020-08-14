@@ -6,5 +6,6 @@ namespace DashboardDataBackend
 {
 	public class TouqueDataProvider
 	{
+
 	}
 }

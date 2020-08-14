@@ -14,7 +14,7 @@
 		mounted() {
 			am4core.ready(function () {
 
-				// Themes begin
+				// Themes begin 
 				am4core.useTheme(am4themes_animated);
 				// Themes end
 

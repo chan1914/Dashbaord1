@@ -83,10 +83,10 @@
 				var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
 				yAxis.baseValue = 0;
 
-				//// Dataloader virker men vi har ikke godt data lige nu
-				//chart.dataSource.url = "https://dashboardtest.imfast.io/Dashboard_data%20-%20csv.csv";
-				//chart.dataSource.parser = new am4core.CSVParser();
-				//chart.dataSource.parser.options.useColumnNames = true;
+				// Dataloader virker men vi har ikke godt data lige nu
+				chart.dataSource.url = "https://dashboardtest.imfast.io/Dashboard_data%20-%20csv.csv";
+				chart.dataSource.parser = new am4core.CSVParser();
+				chart.dataSource.parser.options.useColumnNames = true;
 
 				// Create series
 				var series = chart.series.push(new am4charts.LineSeries());
